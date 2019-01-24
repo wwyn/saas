@@ -1,0 +1,6 @@
+<view class="store-desc">
+    <import src="/utils/wxParse/wxParse.wxml"/>
+    <view class="wxParse">
+        <template is="wxParse" data="{{wxParseData:store_desc.nodes}}"/>
+    </view>
+</view>

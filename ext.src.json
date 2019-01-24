@@ -1,0 +1,67 @@
+{
+  "extEnable": true,
+  "extAppid": "wx302729a8de53ff94",
+  "ext": {
+    "client_id": "1",
+    "order_id": "4317353622812",
+    "product_id": "6",
+    "product_bn": "app-wxa-ent",
+    "agent_id": "1",
+    "app_year": "2017",
+    "app_sec": "16570",
+    "app_type": "wxa",
+    "app_norm": "ent",
+    "is_create": "true",
+    "start_time": "1505577600",
+    "end_time": "1537113600",
+    "open_type": "wx",
+    "open_app_id": "wx302729a8de53ff94",
+    "url": "https://app.vmcyun.com",
+    "host_pre": "1716570wxa"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "VMCYun",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "statics/image/tabbar/home.png",
+        "selectedIconPath": "statics/image/tabbar/home_fill.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "statics/image/tabbar/cat.png",
+        "selectedIconPath": "statics/image/tabbar/cat_fill.png"
+      },
+      {
+        "pagePath": "pages/store/index",
+        "text": "体验店",
+        "iconPath": "statics/image/tabbar/shop.png",
+        "selectedIconPath": "statics/image/tabbar/shop_fill.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "statics/image/tabbar/cart.png",
+        "selectedIconPath": "statics/image/tabbar/cart_fill.png"
+      },
+      {
+        "pagePath": "pages/member/index",
+        "text": "我的",
+        "iconPath": "statics/image/tabbar/my.png",
+        "selectedIconPath": "statics/image/tabbar/my_fill.png"
+      }
+    ],
+    "color": "#333",
+    "selectedColor": "#000",
+    "backgroundColor": "#efefef",
+    "borderStyle": "white",
+    "position": "bottom"
+  }
+}

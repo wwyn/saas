@@ -1,0 +1,87 @@
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<wxs src="../../utils/fmt.wxs" module="fmt" />
+<view class="cart-objects" wx:if="{{cart_empty=='false'}}">
+    <!-- 自营 //TODO 多商户 循环weui-panel -->
+    <view class="weui-panel">
+            <view class="weui-panel__bd" wx:if="{{!is_merchant}}">
+                <import src="tpl.wxml"/>
+                <view class="showVIP_left" wx:if="{{ vip_goods_count > 0 && vip_cart_amount < 800 }}">800VIP商品,再买{{800 - vip_cart_amount}}元可下单 <text bindtap='goVip'>去凑单 ></text></view>
+                <template is="goods-cart" data="{{data_list:objects.goods,vip_object_count:vip_object_count,themecolor:themecolor,coitem_transform_dis:coitem_transform_dis,images:images}}"/>
+            <view class="weui-panel__ft order-promotion" wx:if="{{promotions.order}}">
+                <view class="weui-cell weui-cell_link">
+
+                        <view class="promotion-list">
+                                <view class="p-item" wx:for="{{promotions.order}}" wx:for-item="item" wx:key="index">
+                                    <view class="p-tag" wx:if="{{item.tag!='送赠品'}}">{{item.tag}}<block wx:if="{{item.rule_type=='coupon'}}">券</block></view>
+                                    <view class="p-desc">
+                                        <view wx:if="{{item.tag=='送赠品'}}">
+                                            <view class="git-item" wx:for="{{item.solution}}">
+                                                <block wx:if="{{item}}">[赠品] {{item}}</block>
+                                            </view>
+                                        </view>
+                                        <block wx:else>
+                                        {{item.name}}<block wx:if="{{item.save&&item.save>0}}">,优惠 <text>¥</text>{{fmt.price(item.save)}}</block>
+                                        </block>
+                                    </view>
+                                </view>
+                        </view>
+
+                </view>
+            </view>
+          </view>
+            <view class="weui-panel__bd"  wx:if="{{is_merchant}}">
+                <block wx:for="{{objects}}" wx:for-item="object_cart" wx:for-index="object_index">
+                    <view>
+                        <view class="co-check" style="float:left;">
+                            <icon type="circle" size="18" color="#ccc" wx:if="{{object_cart.object_count!=object_cart.objects.goods.length}}" bindtap="check_all" data-index="{{object_index}}" data-status="enabled"/>
+                            <icon type="success" size="18" wx:if="{{object_cart.object_count==object_cart.objects.goods.length}}" data-index="{{object_index}}" bindtap="check_all" data-status="disabled" color="{{themecolor.cart_checkouticon_color}}"/>
+                        </view>
+                        <text>{{object_cart.merchant.show_name}}</text>
+                    </view>
+                    <import src="tpl.wxml"/>
+                    <view class="showVIP" wx:if="{{ object_cart.vip_goods_count > 0 && object_cart.vip_cart_amount < 800 }}">800VIP商品,再买{{800 - object_cart.vip_cart_amount}}元可下单 <text bindtap='goVip'>去凑单 ></text></view>
+                    <template is="goods-cart" data="{{data_list:object_cart.objects.goods,vip_object_count:object_cart.vip_object_count,themecolor:themecolor,coitem_transform_dis:coitem_transform_dis,images:images}}"/>
+                    <view class="weui-panel__ft order-promotion" wx:if="{{object_cart.promotions.order}}">
+                <view class="weui-cell weui-cell_link">
+
+                        <view class="promotion-list">
+                                <view class="p-item" wx:for="{{object_cart.promotions.order}}" wx:for-item="item" wx:key="index">
+                                    <view class="p-tag" wx:if="{{item.tag!='送赠品'}}">{{item.tag}}<block wx:if="{{item.rule_type=='coupon'}}">券</block></view>
+                                    <view class="p-desc">
+                                        <view wx:if="{{item.tag=='送赠品'}}">
+                                            <view class="git-item" wx:for="{{item.solution}}">
+                                                <block wx:if="{{item}}">[赠品] {{item}}</block>
+                                            </view>
+                                        </view>
+                                        <block wx:else>
+                                        {{item.name}}<block wx:if="{{item.save&&item.save>0}}">,优惠 <text>¥</text>{{fmt.price(item.save)}}</block>
+                                        </block>
+                                    </view>
+                                </view>
+                        </view>
+
+                </view>
+            </view>
+                </block>
+            </view>
+            
+    </view>
+</view>
+<view class="cart-footer" wx:if="{{objects && goods_count>0 && cart_empty=='false'}}" style="background-color:{{themecolor.cart_footbg_color}}">
+
+    <view class="cart-total" style="color:{{themecolor.cart_foottext_color}}">
+        <view class="count">{{goods_count}}件商品(不含运费)</view>
+        <view class="total">
+            合计：<text style="color:{{themecolor.cart_footprice_color}}">¥ {{fmt.price(finally_cart_amount)}}</text>
+        </view>
+    </view>
+    <navigator class="go-checkout" hover-class="go-checkout-active" url="/pages/checkout/checkout" style="background-color:{{themecolor.cart_checkout_color}};color:{{themecolor.cart_checkouttext_color}}">
+        立即结算
+    </navigator>
+</view>
+
+<view class="prompt-panel" wx:if="{{cart_empty=='true'}}">
+    <image mode="widthFix" src="{{img_url}}/public/wechat/statics/image/xcxicon/cart_empty.png" />
+    <view class="text">购物车为空～</view>
+    <navigator class="navigator" open-type="switchTab" url="/pages/index/index">去选购商品</navigator>
+</view>

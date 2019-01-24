@@ -1,0 +1,5 @@
+@import "/utils/wxParse/wxParse.wxss";
+page{
+    background: #efefef;
+    padding-bottom: 50px;
+}

@@ -1,0 +1,12 @@
+<!--pages/vstore/agree/agree.wxml-->
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<block wx:if="{{hideLoading}}">
+    <view  class="store-modal">
+        <view class="modal-title">商家入驻协议</view>
+        <view class="modal-txt">
+          <text wx:if="{{is_agent}}">{{agreement.agent}}</text>
+          <text wx:else>{{agreement.vshop}}</text>
+        </view>
+        <view bindtap='consent' class="consent">我同意</view>
+    </view>
+</block>

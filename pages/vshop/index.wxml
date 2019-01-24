@@ -1,0 +1,145 @@
+<!--pages/mystore/vstore/index.wxml-->
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<block wx:if="{{hideLoading}}">
+<view class="" wx:if="{{vshop && vshop.status =='active' }}">
+        <view class="warpper-content">
+            <image class="warpper-image" bindtap="evt_goindex" src="{{img_url}}/public/wechat/vshop/Oval.png" mode="widthFix"></image>
+            <image class="right-icon" bindtap="evt_goindex" src="{{img_url}}/public/wechat/vshop/right.png" mode="widthFix"></image>
+            <view class="shop-info">
+                <view class="flex-row">
+                    <image class="vshop-logo" mode="aspectFill" src="{{vshop.logo_url?vshop.logo_url:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"></image>
+                    <view class="flex-column">
+                        <view class="flex-row">
+                            <view class="shop-name">{{vshop.name}}</view>
+                            <view class="shop-lv" >
+                                {{vshop.lv_info.name}}
+                            </view>
+                        </view>
+                        <view class="shop-id">
+                            ID:{{vshop.shop_id}}
+                        </view>
+                        <view class="shop-flag" wx:if="{{vshop.is_agent!='0'}}">
+                            <label>{{agent.agent_type=='enterprise'?'企业':'个人'}}认证</label>
+                            <label wx:if="{{agent.agent_type=='enterprise'}}">品牌授权</label>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="award-info">
+                <view class="benefit">
+                    <navigator url="/pages/vshop/statement/index?from={{date_month_first}}&status=noconfirm" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                        <view class="val f-red">{{amount_voucher_subprice}}</view>
+                        <view class="label">可结算收益 (元)</view>
+                    </navigator>
+                    <navigator url="/pages/vshop/order/index?show_today=1" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                        <view class="val">{{count_tody_order}}</view>
+                        <view class="label">今日订单</view>
+                    </navigator>
+                    <navigator url="/pages/vshop/voucher/index?from={{date_month_first}}" class="weui-media-box weui-media-box_appmsg last" hover-class="weui-cell_active">
+                        <view class="val">{{count_voucher_subprice}}</view>
+                        <view class="label">收益 (元)</view>
+                    </navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="weui-grids" wx:if="{{vshop && vshop.status =='active' }}">
+        <navigator class="weui-grid" url="/pages/vshop/team/index" wx:if="{{open_second === 'true'}}">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/1.png" />
+            </view>
+            <view class="weui-grid__label">
+                 {{agent?'微店管理':'我的团队'}}
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/order/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/2.png" />
+            </view>
+            <view class="weui-grid__label">
+                 订单管理
+            </view>
+        </navigator>
+        <view class="weui-grid" bindtap="evt_getqrcode">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/3.png" />
+            </view>
+            <view class="weui-grid__label">
+                 店铺二维码
+            </view>
+        </view>
+        <navigator class="weui-grid" url="/pages/vshop/voucher/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/4.png" />
+            </view>
+            <view class="weui-grid__label">
+                 结算凭证
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/statement/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/5.png" />
+            </view>
+            <view class="weui-grid__label">
+                 财务结算
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/notice/index">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/6.png" />
+            </view>
+            <view class="weui-grid__label">
+                 推广课堂
+            </view>
+        </navigator>
+        <navigator class="weui-grid" url="/pages/vshop/my/edit">
+            <view class="weui-grid__icon">
+                <image mode="aspectFit" src="{{img_url}}/public/wechat/vshop/shopmess.png" />
+            </view>
+            <view class="weui-grid__label">
+                 店铺信息
+            </view>
+        </navigator>
+    </view>
+  <view class="my-store" wx:if="{{(!agent&&!vshop)||(agent&&!agent['agent_id']&&!vshop)}}">
+      <view class="chen-logo">
+          <image src="{{img_url}}/public/wechat/vshop/storp-img.png" />
+      </view>
+      <view class="chen-title">
+          <text>快速拥有</text>
+          <text>自己的小程序店铺</text>
+      </view>
+      <view class="store-advantage">
+          <view><text></text>  超低门槛入住</view>
+          <view><text></text>  店铺随意装修</view>
+          <view><text></text>  丰富营销工具</view>
+      </view>
+      <button disabled='{{ !checked }}' class="store-btn" open-type="getPhoneNumber" bindgetphonenumber="evt_getphonenumber"  wx:if="{{!member_info.account_mobile}}">我也要开店</button>
+      <button disabled='{{ !checked }}' class="store-btn" bindtap="evt_joinvshop"  wx:else>我也要开店</button>
+      <view  class="info">
+          <icon type="circle" size="14" bindtap="agreeMent" color="#6699FF" wx:if="{{!checked}}"></icon>
+          <icon type="success" size="14" bindtap="agreeMent" color="#6699FF" wx:if="{{checked}}"></icon>
+          <text bindtap='userAgreement'>我同意《商家入驻协议》</text>
+      </view>
+  </view> 
+  <view class="verify-box">
+    <view class="succeed" wx:if="{{(agent&&agent.agent_status=='1')||(!agent&&vshop && vshop.status == 'validate')}}">
+      <image src="{{img_url}}/public/wechat/vshop/submitsuccess.png"></image>
+      <view class="verify-success">提交成功</view>
+      <view class="succeed-text">系统将在3-5个工作日内作出审核</view>
+      <view class="succeed-text">请耐心等待...</view>
+      <button bindtap='goHome' class="verify-submit" bindtap="evt_goindex">返回首页</button>
+    </view>
+    <view class="succeed"  wx:if="{{(agent&&agent.agent_status=='7')||(!agent&&vshop && vshop.status == 'reject')}}">
+      <image src="{{img_url}}/public/wechat/vshop/submitfail.png"></image>
+      <view class="verify-fail">审核失败</view>
+      <view class="fail-text">{{is_agent?agent.reject_reason:vshop.reject_reason}}</view>
+      <button bindtap="evt_joinvshop" class="verify-submit">重新提交</button>
+    </view>
+    <view class="succeed"  wx:if="{{(agent&&agent.agent_status=='8')||(!agent&&vshop && vshop.status == 'pause')}}">
+      <image src="{{img_url}}/public/wechat/vshop/submitfail.png"></image>
+      <view class="verify-fail">已停业</view>
+    </view>
+  </view>
+</block>

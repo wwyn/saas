@@ -1,0 +1,19 @@
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<view class="prompt-panel" wx:if="{{empty_list == 'YES'}}">
+    <view class="icon-empty-list"></view>
+</view>
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower" wx:if="{{notice_list}}">
+    <view class="notice-list weui-cells">
+            <navigator class="weui-cell weui-cell_access"  wx:for="{{notice_list}}" wx:for-item="notice" wx:key="notice_id" url="detail/detail?notice_id={{notice.notice_id}}" >
+                <view class="weui-cell__bd weui-cell_primary">
+                    <view class="pubtime">{{notice.pubtime}}</view>
+                    {{notice.title}}
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+    </view>
+    <view class="weui-loadmore" wx:if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">共{{order_count}}条</view>
+    </view>
+</scroll-view>

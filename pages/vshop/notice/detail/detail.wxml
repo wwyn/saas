@@ -1,0 +1,12 @@
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<view class="weui-article" wx:if="{{hideLoading && success}}">
+    <view class="article-title">{{notice.title}}</view>
+    <view class="article-pubtime">{{notice.last_modify}}</view>
+    <import src="/utils/wxParse/wxParse.wxml"/>
+    <view class="wxParse article-content">
+        <template is="wxParse" data="{{wxParseData:notice_content.nodes}}"/>
+    </view>
+</view>
+<view class="weui-article-error" wx:if="{{hideLoading && !success}}">
+  您查看的内容不存在
+</view>

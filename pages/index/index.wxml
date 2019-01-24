@@ -1,0 +1,3 @@
+<include src="_index.wxml"/>
+<!-- <include src="_index.wxml" wx:if="{{is_default_index}}"/>
+<include src="/pages/vshop/home/index.wxml" wx:if="{{is_vshop_index}}"/> -->

@@ -1,0 +1,84 @@
+<view class="verify-box"> 
+    <view class="verify-step">
+      <view>
+        <view class="verify-number">1</view>
+        <view>绑定手机</view>
+      </view>
+      <view class="step-dotted"></view>
+      <view>
+        <view class="{{ true?'step':'' }} verify-number">2</view>
+        <view class="step-text">验证消息</view>
+      </view>
+      <view class="step-dotted"></view>
+
+      <view>
+        <view class="verify-number verify-number-submit">3</view>
+        <view>提交审核</view>
+      </view>
+    </view>
+    <view class="verify-txt">选择店铺类型</view>
+    <view>
+      <form bindsubmit="formSubmit">
+        <view class="classify" wx:if="{{is_agent}}">
+          <view bindtap='classifySelected' wx:for="{{ classifyList }}" data-index="{{index}}" data-item="{{item}}" wx:key="index" wx:for-item="item" class="{{ item.value==agent_type?'active':'' }}"><image src="{{ item.value==agent_type?img_url+item.url1:img_url+item.url2 }}"></image>{{ item.title }}
+            <input class="none" name="genreName" value='{{ _item }}' />
+          </view>
+        </view>
+        <block>
+          <view class="personal">
+            <label>店铺名称</label>
+            <input type="text" name="shopname" placeholder="请输入..." bindinput="evt_input" data-type="shopname" value="{{shopname}}" />
+          </view>
+          <view class="personal">
+            <label>{{ agent_type=='individual'?'真实姓名':'企业名称'}}</label>
+            <input type="text" name="shopkeeper" placeholder="请输入..."  bindinput="evt_input" data-type="shopkeeper" value="{{shopkeeper}}"/>
+          </view>
+          <view class="personal">
+            <label>{{ agent_type=='individual'?'身份证号':'统一社会信用代码'}}</label>
+            <input type="text" name="idcard" placeholder="请输入..."  bindinput="evt_input" data-type="idcard" value="{{idcard}}"/>
+          </view>
+          <view class="IDimage" wx:if="{{ agent_type=='individual' }}">
+            <label>上传图片</label>
+            <view>
+              <input name="idcard_front_image_id" value="" hidden />
+              <text>.jpg .png 1M以内</text>
+              <view wx:if="{{ idcard_img }}" bindtap='uploadIDimage' data-type="idcard" class="IDimage-text">
+                <image src="{{images[idcard_img]?images[idcard_img]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{idcard_img}}" bindload="load_image" mode="aspectFill" ></image>
+              </view>
+              <view wx:if="{{ !idcard_img }}" class="IDimage-text" bindtap='uploadIDimage'  data-type="idcard">
+                <text>+</text>
+                <text>上传手持</text>
+                <text>身份证照片</text>
+              </view>
+            </view>
+          </view>
+          <view class="IDimage" wx:if="{{ agent_type=='enterprise' }}">
+            <label>上传图片</label>
+            <view>
+              <text>.jpg .png 1M以内</text>
+              
+              <view class="uploadimage">
+                <view wx:if="{{ licence_img}}" bindtap='uploadIDimage' data-type="licence" class="IDimage-text">
+                  <image src="{{images[licence_img]?images[licence_img]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{licence_img}}" bindload="load_image"></image>
+                </view>
+                <view wx:if="{{ !licence_img }}" class="IDimage-text" bindtap='uploadIDimage'  data-type="licence">
+                <text>+</text>
+                <text>上传</text>
+                <text>营业执照</text>
+              </view>
+               <view wx:if="{{ brand_img }}" bindtap='uploadIDimage' data-type="brand" class="IDimage-text">
+                <image src="{{images[brand_img]?images[brand_img]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" bindload="load_image" data-ident="{{brand_img}}"></image>
+              </view>
+              <view wx:if="{{ !brand_img }}" class="IDimage-text" bindtap='uploadIDimage' data-type="brand">
+                <text>+</text>
+                <text>上传</text>
+                <text>品牌授权书</text>
+              </view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <button class="verify-btn" bindtap="evt_submit">提交</button>
+      </form>
+    </view>
+  </view>

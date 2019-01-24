@@ -1,0 +1,89 @@
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<block wx:if="{{hideLoading}}">
+    <wxs src="../../../utils/fmt.wxs" module="fmt" />
+    <view>
+      <view class="list-item">
+          <label>ID</label>
+          <text>{{vshop.shop_id}}</text>
+      </view>
+      <view class="list-item" wx:if="{{vshop.is_agent=='1'}}">
+          <label>店铺类型</label>
+          <text>{{agent.agent_type=='enterprise'?'企业':'个人'}}</text>
+      </view>
+      <view class="list-item list-item_ft" bindtap="evt_mess" data-type="logo">
+          <label>Logo</label>
+          <image mode="aspectFill" bindload="load_image" src="{{images[vshop.logo]?images[vshop.logo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{vshop.logo}}"></image>
+      </view>
+      <view class="list-item list-item_ft" bindtap="evt_mess" data-type="name">
+          <label>店铺名称</label>
+          <text style="padding-right:30rpx;">{{vshop.name}}</text>
+      </view>
+      <view class="list-item">
+          <label>店铺等级</label>
+          <text>{{vshop.shop_lv_id}}</text>
+      </view>
+      <view class="list-item" wx:if="{{vshop.is_agent=='1'}}" bindtap="evt_mess" data-type="area">
+          <label>所属城市</label>
+          <text>{{fmt.region(agent.region)}}</text>
+      </view>
+      <view class="list-item" wx:if="{{vshop.is_agent=='1'}}"  bindtap="evt_mess" data-type="address">
+          <label>门店地址</label>
+          <text>{{agent.address}}</text>
+      </view>
+   </view>
+</block>
+<view class="position-fix" wx:if="{{editMess}}" catchtouchmove='true'>
+    <view class="remark" wx:if="{{editname}}">
+        <view class="title">修改店铺名称</view>
+        <view class="content">
+            <input type="text" placeholder='请输入店铺名称' value="{{shopname}}" bindinput="insertMess"  data-type="name"></input>
+        </view>
+        <view class="cart-operate">
+            <view class="cart-cancel" bindtap="close_mess" data-type="name">点错了</view>
+            <view class="cart-confirm" bindtap="evt_operate" data-type="name">确定</view>
+        </view>
+    </view>
+    <view class="remark" wx:if="{{editaddress}}">
+        <view class="title">修改门店地址</view>
+        <view class="content">
+            <input type="text" placeholder='请输入门店地址' value="{{agentAddress}}"  bindinput="insertMess"  data-type="address"></input>
+        </view>
+        <view class="cart-operate">
+            <view class="cart-cancel" bindtap="close_mess" data-type="address">点错了</view>
+            <view class="cart-confirm" bindtap="evt_operate" data-type="address">确定</view>
+        </view>
+    </view>
+    <view class="remark" wx:if="{{editlogo}}">
+        <view class="title">修改Logo</view>
+        <view class="content">
+            <image bindtap="evt_chgavatar" mode="aspectFill" bindload="load_image" src="{{images[vshoplogo]?images[vshoplogo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{vshoplogo}}"></image>
+            <view class="content-text">点击头像更换</view>
+        </view>
+        <view class="cart-operate">
+            <view class="cart-cancel" bindtap="close_mess" data-type="logo">点错了</view>
+            <view class="cart-confirm" bindtap="evt_operate" data-type="logo">确定</view>
+        </view>
+    </view>
+    <view class="remark" wx:if="{{editarea}}">
+        <view class="title">修改城市</view>
+        <view class="content">
+            <view class="weui-cell__bd" wx:if="{{selected_region}}">
+                <picker-view  class="region-picker-view" indicator-style="height: 30px;" style="height: 100px;" value="{{selected_region}}" bindchange="evt_regionchange">
+                    <picker-view-column class="column">
+                      <view wx:for="{{region_data.first}}" wx:for-item="item" wx:key="index">{{item.text}}</view>
+                    </picker-view-column>
+                    <picker-view-column class="column">
+                      <view wx:for="{{region_data.second}}" wx:for-item="item" wx:key="index">{{item.text}}</view>
+                    </picker-view-column>
+                    <picker-view-column class="column">
+                      <view wx:for="{{region_data.third}}" wx:for-item="item" wx:key="index">{{item.text}}</view>
+                    </picker-view-column>
+                </picker-view>
+            </view>
+        </view>
+        <view class="cart-operate">
+            <view class="cart-cancel" bindtap="close_mess" data-type="region">点错了</view>
+            <view class="cart-confirm" bindtap="evt_operate" data-type="region">确定</view>
+        </view>
+    </view>
+</view>

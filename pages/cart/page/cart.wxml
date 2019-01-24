@@ -1,0 +1,2 @@
+<wxs src="../../../utils/fmt.wxs" module="fmt" />
+<include src="../cart.wxml"/>

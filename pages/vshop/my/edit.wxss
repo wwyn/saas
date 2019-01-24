@@ -1,0 +1,118 @@
+page{
+  background:#efefef;
+}
+.list-item{
+  line-height:100rpx;
+  background:#FFF;
+  display:flex;
+  justify-content: space-between;
+  color:#666;
+  padding:0 30rpx;
+  font-size:32rpx;
+  align-items: center;
+  position:relative;
+  border-bottom:1rpx solid #eee;
+}
+.list-item image{
+  width:120rpx;
+  height:120rpx;
+  background:#efefef;
+  border-radius:50%;
+  margin-right:30rpx;
+}
+.list-item.list-item_ft:after{
+    content: "";
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    border-width: 2px 2px 0 0;
+    border-color: #C8C8CD;
+    border-style: solid;
+    -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    margin-top: -4px;
+    right: 30rpx;
+}
+.list-item:last-child{
+  border:0;
+}
+
+.position-fix{
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:rgba(0,0,0,0.3);
+    display:flex;
+    align-items: center;
+}
+.position-fix .refuse-popup{
+    position:relative;
+    bottom:0;
+    width:100%;
+    height:300rpx;
+    background:#fff;
+}
+
+.refuse-btn{
+    background:#6699FF;
+    color:#fff;
+    line-height:100rpx;
+    text-align:center;
+}
+.position-fix .remark{
+    width:580rpx;
+    /* height:360rpx; */
+    background:#fff;
+    margin:0 auto;
+}
+.position-fix .remark image{
+   width:120rpx;
+   height:120rpx;
+   background:#efefef;
+   display:block;
+   margin:0 auto;
+   border-radius: 50%;
+}
+.position-fix .remark .title{
+    line-height:94rpx;
+    color:#333;
+    font-size:30rpx;
+    text-align:center;
+}
+.position-fix .remark input{
+    width:480rpx;
+    height:60rpx;
+    border:1rpx solid #ebebeb;
+    font-size:26rpx;
+    margin:0 auto;
+    padding:10rpx;
+    background:#FAFAFA;
+}
+.position-fix .remark .cart-operate{
+    display:flex;
+    border-top:1rpx solid #ebebeb;
+    line-height:99rpx;
+    height:99rpx;
+    text-align:center;
+    color:#999;
+    margin-top:30rpx;
+}
+.position-fix .remark .cart-operate view{
+    flex:1;
+}
+.position-fix .remark .cart-operate view:nth-child(1){
+    border-right:1rpx solid #ebebeb;
+}
+.position-fix .remark .cart-operate view:nth-child(2){
+    color:#6699FF;
+}
+.content-text{
+  text-align:center;
+  color:#666;
+  font-size:28rpx;
+}

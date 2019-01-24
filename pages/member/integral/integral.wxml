@@ -1,0 +1,60 @@
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<block  wx:if="{{hideLoading}}">
+<scroll-view scroll-y="true" style="height:{{sv_height}}px;" bindscrolltolower="evt_scrolltolower">
+    <view class="integral-list">
+        <view class="weui-panel">
+                <view class="weui-panel__hd head">
+                    {{member.integral?member.integral:0}}
+                </view>
+                <view class="weui-panel__bd">
+                    <navigator class="weui-cell" url="/pages/member/integralexchange/index">
+                        <view class="weui-cell__hd">
+                            积分兑换优惠券
+                        </view>
+                        <view class="weui-cell__bd">
+
+                        </view>
+                        <view  class="weui-cell__ft weui-cell__ft_in-access">
+                            查看可兑换优惠券
+                        </view>
+                    </navigator>
+                    <!-- <view class="weui-cell">
+                        <view class="weui-cell__hd">
+                            积分抵扣现金
+                        </view>
+                        <view class="weui-cell__bd">
+
+                        </view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            查看积分抵扣现金规则
+                        </view>
+                    </view> -->
+                </view>
+        </view>
+        <view class="weui-panel">
+                <view class="weui-panel__hd">
+                    积分历史
+                </view>
+                <view class="weui-panel__bd">
+                    <block wx:for="{{integral_list}}" wx:for-item="item" wx:key="index">
+                        <view bindtap="evt_changealert" class="weui-cell" data-orderid="{{item.order_id}}" data-changetime="{{item.change_time}}" data-changeexpire="{{item.change_expire}}" data-remark="{{item.remark}}">
+                            <view class="weui-cell__hd">
+                                {{reason_map[item.change_reason]}}
+                            </view>
+                            <view class="weui-cell__bd">
+                                {{item.change>0?'+':''}}{{item.change}}
+                            </view>
+                            <view class="weui-cell__ft">
+                                变动后余额:{{item.balance}}
+                            </view>
+                        </view>
+                    </block>
+                </view>
+        </view>
+    </view>
+    <view class="weui-loadmore" wx:if="{{pager.current && pager.total>pager.current}}">正在加载</view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{pager.total>1 && pager.total == pager.current}}">
+        <view class="weui-loadmore__tips">无更多记录</view>
+    </view>
+</scroll-view>
+</block>

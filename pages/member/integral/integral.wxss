@@ -1,0 +1,15 @@
+page{
+    background: #efefef;
+}
+.head{
+    font-size: 32px;
+    color:#fff;
+    background: linear-gradient(to bottom,#1484F7,#35A2FB);
+    text-align: center;
+}
+.weui-bar__item_on{
+    border-bottom-color: #1484F7;
+}
+.weui-panel__hd:after{
+    display: none;
+}

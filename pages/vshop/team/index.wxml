@@ -1,0 +1,48 @@
+<view class="page-loading" wx:if="{{!hideLoading}}"></view>
+<wxs src="../../../utils/fmt.wxs" module="fmt" />
+<view wx:if="{{hideLoading}}">
+    <view class="team-top" style="background-image:url({{img_url}}/public/wechat/vshop/vshop-top.png)">
+        <image class="vshop-logo" mode="aspectFill" src="{{vshop.logo_url?vshop.logo_url:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}"></image>
+        <text>{{vshop.name}}</text>
+    </view>
+    <view class="team-type">
+      <view class="item {{team_type=='s1'?'active':''}}" data-type="s1" bindtap="changeType"><label>待审批</label></view>
+      <view class="item {{team_type=='s2'?'active':''}}" data-type="s2" bindtap="changeType"><label>已开通</label></view>
+      <view class="item {{team_type=='s3'?'active':''}}" data-type="s3" bindtap="changeType"><label>已停业/已拒绝</label></view>
+    </view>
+    <view class="team-list">
+        <view class="team-item"  wx:if="{{empty_list == 'NO'}}"  wx:for="{{group_list}}" wx:for-item="item" wx:for-index="index">
+          <image mode="aspectFit" class="item-image" bindload="load_image" src="{{images[item.logo]?images[item.logo]:'data:image/gif;base64,R0lGODlhAQABAIAAAO/v7////yH5BAAHAP8ALAAAAAABAAEAAAICRAEAOw=='}}" data-ident="{{item.logo}}" />
+          <text class="shop-name">{{item.name}}</text>
+          <text class="shop-status color-blue" wx:if="{{item.status=='validate'}}">待审批</text>
+          <text class="shop-status color-green" wx:if="{{item.status=='active'}}">已开通</text>
+          <text class="shop-status color-red" wx:if="{{item.status=='reject'}}">已拒绝</text>
+          <text class="shop-status color-gray" wx:if="{{item.status=='pause'}}">已停业</text>
+          <block wx:if="{{vshop.is_agent!='0'}}">
+          <!-- wx:if="{{vshop.is_agent!='0'}}" -->
+              <label class="team-btn red-btn"  data-id="{{item.shop_id}}" data-index="{{index}}" data-type="reject" wx:if="{{item.status=='validate'}}" bindtap="showRefuse">拒绝</label>
+              <label class="team-btn" data-name="{{item.name}}" data-index="{{index}}"  data-id="{{item.shop_id}}"  data-type="agree"  wx:if="{{item.status=='validate'}}" bindtap="evt_operate">同意</label>
+              <label class="team-btn" data-index="{{index}}"   data-id="{{item.shop_id}}"  data-type="close" wx:if="{{item.status=='active'}}" bindtap="evt_operate">停业</label>
+              <label class="team-btn" data-index="{{index}}"  data-id="{{item.shop_id}}"  data-type="open" wx:if="{{item.status=='pause'}}" bindtap="evt_operate">开业</label>
+          </block>
+          
+        </view>
+        <view class="prompt-panel" wx:if="{{empty_list == 'YES'}}">
+            <image mode="widthFix" src="{{img_url}}/public/wechat/vshop/nodata.png"></image>
+            <view class="no-data" style="color:#999;font-size:24rpx;">暂无数据</view>
+        </view>
+    </view>
+</view>
+<view class="position-fix" wx:if="{{refuse}}" catchtouchmove='true'>
+    <view class="remark">
+        <view class="title">添加拒绝理由</view>
+        <view class="content">
+            <textarea placeholder='请输入拒绝理由' value="{{refuseContent}}" bindinput="insertContent">
+            </textarea>
+        </view>
+        <view class="cart-operate">
+            <view class="cart-cancel" bindtap="closeRefuse">点错了</view>
+            <view class="cart-confirm" bindtap="evt_operate"  data-index="{{refuseindex}}"  data-id="{{refuseid}}" data-type="reject">确定</view>
+        </view>
+    </view>
+</view>
